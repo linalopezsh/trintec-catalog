@@ -1,291 +1,203 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trintec Construction Inc. — Company Catalog</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
+    :root {
+      --tc-blue: #1a5fa8;
+      --tc-sky: #5aabdc;
+      --tc-light: #e6f1fb;
+      --tc-dark: #042C53;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f7fa;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --border: #e5e7eb;
+      --radius: 10px;
+    }
 
-<style>
-  /* TODO tu CSS actual */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
 
-  /* Responsive phone */
-  @media (max-width: 600px) {
+    .catalog { width: 100%; max-width: 900px; margin: 0 auto; }
+
+    /* Header */
     .header {
-      padding: 16px;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-logo img {
+      height: 70px;
+      width: auto;
+      display: block;
+    }
+    .header-badge img {
+      height: 70px;
+      width: auto;
+      display: block;
     }
 
-    .logo-name {
-      font-size: 20px;
-      letter-spacing: 2px;
-    }
-
-    .header-badge {
-      width: 100%;
-    }
-
+    /* Nav */
     .nav {
-      padding: 0 12px;
+      display: flex; gap: 2px; padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
     }
-
+    .nav::-webkit-scrollbar { display: none; }
     .nav-btn {
-      padding: 12px 10px;
-      font-size: 12px;
+      flex-shrink: 0; padding: 12px 16px; font-size: 13px; font-weight: 400;
+      border: none; background: transparent; cursor: pointer; color: var(--text-secondary);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
     }
+    .nav-btn:hover { color: var(--text-primary); }
+    .nav-btn.active { color: var(--tc-blue); border-bottom-color: var(--tc-blue); font-weight: 500; }
 
-    .section {
-      padding: 16px 14px;
-    }
+    /* Sections */
+    .section { display: none; padding: 20px 24px; }
+    .section.active { display: block; }
 
-    .about-grid,
-    .clients-cols,
-    .caps-grid,
-    .cred-grid,
-    .contact-grid {
-      grid-template-columns: 1fr;
+    /* About */
+    .tagline {
+      background: var(--tc-light); border-radius: var(--radius); padding: 16px 20px;
+      border-left: 3px solid var(--tc-blue); margin-bottom: 20px;
     }
+    .tagline p { font-size: 14px; color: var(--tc-dark); line-height: 1.7; }
 
-    .pillars {
-      grid-template-columns: 1fr;
-    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .info-card { background: var(--bg-secondary); border-radius: var(--radius); padding: 16px; }
+    .ic-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .ic-value { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+    .ic-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
 
-    .proj-grid {
-      grid-template-columns: 1fr;
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .pillar { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; text-align: center; }
+    .p-icon { font-size: 22px; margin-bottom: 8px; }
+    .p-title { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .p-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* Clients */
+    .clients-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .clients-group h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text-primary); }
+    .client-chip {
+      display: inline-block; margin: 3px 3px 3px 0;
+      padding: 4px 10px; font-size: 12px;
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text-secondary);
     }
+    .client-chip.gov { background: #e6f1fb; color: var(--tc-dark); border-color: #b5d4f4; }
+
+    /* Projects */
+    .proj-filter { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 5px 14px; font-size: 12px; border: 1px solid var(--border);
+      background: var(--bg-primary); border-radius: 20px; cursor: pointer;
+      color: var(--text-secondary); transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--tc-sky); color: var(--tc-blue); }
+    .filter-btn.active { background: var(--tc-blue); color: #fff; border-color: var(--tc-blue); font-weight: 500; }
+
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .proj-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; background: var(--bg-primary); }
+    .proj-tag {
+      display: inline-block; margin-bottom: 8px; font-size: 10px; text-transform: uppercase;
+      letter-spacing: 1px; padding: 2px 8px; border-radius: 10px; font-weight: 500;
+    }
+    .proj-tag.commercial { background: #e6f1fb; color: var(--tc-dark); }
+    .proj-tag.municipal { background: #eaf3de; color: #27500A; }
+    .proj-tag.residential { background: #FAEEDA; color: #412402; }
+    .proj-tag.hospitality { background: #FBEAF0; color: #4B1528; }
+    .proj-tag.exterior { background: #F1EFE8; color: #2C2C2A; }
+    .proj-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; color: var(--text-primary); }
+    .proj-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* Capabilities */
+    .caps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cap-group { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .cap-group h3 { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; color: var(--tc-blue); }
+    .cap-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .cap-item:last-child { border-bottom: none; }
+    .cap-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tc-sky); flex-shrink: 0; }
+    .cap-item span { font-size: 13px; color: var(--text-primary); }
+
+    /* Credentials */
+    .cred-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cred-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; background: var(--bg-primary); }
+    .cred-card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 10px; }
+    .cred-item { padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .cred-item:last-child { border-bottom: none; }
+    .ci-label { font-size: 12px; color: var(--text-secondary); }
+    .ci-val { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .ci-num { font-size: 12px; color: var(--tc-blue); font-family: monospace; }
+
+    .insurance-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .insurance-row:last-child { border-bottom: none; }
+    .ins-type { font-size: 13px; color: var(--text-secondary); }
+    .ins-amt { font-size: 16px; font-weight: 500; color: var(--tc-blue); }
 
     .highlight-strip {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
+      background: var(--tc-light); border-radius: var(--radius); padding: 14px 20px;
+      margin-top: 12px; display: flex; align-items: center; justify-content: space-between;
     }
+    .hs-label { font-size: 12px; color: var(--text-secondary); }
+    .hs-value { font-size: 18px; font-weight: 500; color: var(--tc-blue); }
 
-    .insurance-row {
-      align-items: flex-start;
-      gap: 8px;
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-info { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .contact-info h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 12px; }
+    .ci-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+    .ci-row svg { flex-shrink: 0; margin-top: 1px; }
+    .ci-text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+    .cert-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .cert-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; background: var(--tc-light); color: var(--tc-dark); border: 1px solid #b5d4f4; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .header { padding: 12px 16px; }
+      .header-logo img { height: 50px; }
+      .header-badge img { height: 50px; }
+      .nav { padding: 0 12px; }
+      .nav-btn { padding: 12px 10px; font-size: 12px; }
+      .section { padding: 16px 14px; }
+      .about-grid, .clients-cols, .caps-grid, .cred-grid, .contact-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .highlight-strip { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .insurance-row { align-items: flex-start; gap: 8px; }
+      .ins-amt { font-size: 14px; }
     }
-
-    .ins-amt {
-      font-size: 14px;
-    }
-  }
-
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --tc-blue: #1a5fa8;
-    --tc-sky: #5aabdc;
-    --tc-light: #e6f1fb;
-    --tc-dark: #042C53;
-    --tc-mid: #378ADD;
-    --nav-h: 56px;
-  }
-  body { font-family: var(--font-sans, system-ui, sans-serif); }
-
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
-
-  .catalog { width: 100%; }
-
-  /* Top header */
-  .header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 24px 16px;
-    border-bottom: 0.5px solid var(--color-border-tertiary);
-    margin-bottom: 4px;
-  }
-  .header-logo { display: flex; flex-direction: column; gap: 2px; }
-  .logo-name {
-    font-size: 22px; font-weight: 500; letter-spacing: 3px;
-    color: var(--tc-blue);
-  }
-  .logo-sub { font-size: 11px; letter-spacing: 2px; color: var(--color-text-secondary); text-transform: uppercase; }
-  .header-badge {
-    background: var(--tc-light); border: 0.5px solid var(--color-border-tertiary);
-    border-radius: var(--border-radius-lg); padding: 6px 14px; text-align: center;
-  }
-  .badge-num { font-size: 20px; font-weight: 500; color: var(--tc-blue); }
-  .badge-label { font-size: 10px; color: var(--color-text-secondary); letter-spacing: 1px; text-transform: uppercase; }
-
-  /* Nav tabs */
-  .nav {
-    display: flex; gap: 2px; padding: 0 24px;
-    border-bottom: 0.5px solid var(--color-border-tertiary);
-    overflow-x: auto; scrollbar-width: none;
-  }
-  .nav::-webkit-scrollbar { display: none; }
-  .nav-btn {
-    flex-shrink: 0; padding: 12px 16px; font-size: 13px; font-weight: 400;
-    border: none; background: transparent; cursor: pointer; color: var(--color-text-secondary);
-    border-bottom: 2px solid transparent; margin-bottom: -0.5px;
-    transition: color 0.15s, border-color 0.15s;
-    white-space: nowrap;
-  }
-  .nav-btn:hover { color: var(--color-text-primary); }
-  .nav-btn.active {
-    color: var(--tc-blue); border-bottom-color: var(--tc-blue); font-weight: 500;
-  }
-
-  /* Sections */
-  .section { display: none; padding: 20px 24px; }
-  .section.active { display: block; }
-
-  /* About section */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-  .info-card {
-    background: var(--color-background-secondary);
-    border-radius: var(--border-radius-lg); padding: 16px;
-  }
-  .info-card .ic-label { font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-  .info-card .ic-value { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
-  .info-card .ic-sub { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
-
-  .tagline {
-    background: var(--tc-light); border-radius: var(--border-radius-lg); padding: 16px 20px;
-    border-left: 3px solid var(--tc-blue); margin-bottom: 20px;
-  }
-  .tagline p { font-size: 14px; color: var(--tc-dark); line-height: 1.7; }
-
-  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .pillar {
-    border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg);
-    padding: 14px; text-align: center;
-  }
-  .pillar .p-icon { font-size: 22px; margin-bottom: 8px; }
-  .pillar .p-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
-  .pillar .p-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
-
-  /* Clients */
-  .clients-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .clients-group { }
-  .clients-group h3 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 0.5px solid var(--color-border-tertiary); }
-  .client-chip {
-    display: inline-block; margin: 3px 3px 3px 0;
-    padding: 4px 10px; font-size: 12px;
-    background: var(--color-background-secondary);
-    border: 0.5px solid var(--color-border-tertiary);
-    border-radius: 20px; color: var(--color-text-secondary);
-  }
-  .client-chip.gov { background: #e6f1fb; color: var(--tc-dark); border-color: #b5d4f4; }
-
-  /* Projects */
-  .proj-filter { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
-  .filter-btn {
-    padding: 5px 14px; font-size: 12px; border: 0.5px solid var(--color-border-tertiary);
-    background: var(--color-background-primary); border-radius: 20px; cursor: pointer;
-    color: var(--color-text-secondary); transition: all 0.15s;
-  }
-  .filter-btn:hover { border-color: var(--tc-sky); color: var(--tc-blue); }
-  .filter-btn.active { background: var(--tc-blue); color: #fff; border-color: var(--tc-blue); font-weight: 500; }
-
-  .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-  .proj-card {
-    border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg);
-    padding: 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
-    background: var(--color-background-primary);
-  }
-  .proj-card:hover { border-color: var(--tc-sky); background: var(--color-background-secondary); }
-  .proj-tag {
-    display: inline-block; margin-bottom: 8px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
-    padding: 2px 8px; border-radius: 10px; font-weight: 500;
-  }
-  .proj-tag.commercial { background: #e6f1fb; color: var(--tc-dark); }
-  .proj-tag.municipal { background: #eaf3de; color: #27500A; }
-  .proj-tag.residential { background: #FAEEDA; color: #412402; }
-  .proj-tag.hospitality { background: #FBEAF0; color: #4B1528; }
-  .proj-tag.exterior { background: #F1EFE8; color: #2C2C2A; }
-  .proj-card h4 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
-  .proj-card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
-
-  /* Capabilities */
-  .caps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .cap-group { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
-  .cap-group h3 { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; color: var(--tc-blue); }
-  .cap-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
-  .cap-item:last-child { border-bottom: none; }
-  .cap-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tc-sky); flex-shrink: 0; }
-  .cap-item span { font-size: 13px; color: var(--color-text-primary); }
-
-  /* Credentials */
-  .cred-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .cred-card {
-    border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px;
-    background: var(--color-background-primary);
-  }
-  .cred-card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-text-secondary); margin-bottom: 10px; }
-  .cred-item { padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
-  .cred-item:last-child { border-bottom: none; }
-  .cred-item .ci-label { font-size: 12px; color: var(--color-text-secondary); }
-  .cred-item .ci-val { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
-  .cred-item .ci-num { font-size: 12px; color: var(--tc-blue); font-family: var(--font-mono, monospace); }
-
-  .insurance-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
-  .insurance-row:last-child { border-bottom: none; }
-  .ins-type { font-size: 13px; color: var(--color-text-secondary); }
-  .ins-amt { font-size: 16px; font-weight: 500; color: var(--tc-blue); }
-
-  .highlight-strip {
-    background: var(--tc-light); border-radius: var(--border-radius-lg); padding: 14px 20px;
-    margin-top: 12px; display: flex; align-items: center; justify-content: space-between;
-  }
-  .hs-label { font-size: 12px; color: var(--color-text-secondary); }
-  .hs-value { font-size: 18px; font-weight: 500; color: var(--tc-blue); }
-
-  /* Contact */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .contact-info { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 18px; }
-  .contact-info h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-text-secondary); margin-bottom: 12px; }
-  .ci-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
-  .ci-row svg { flex-shrink: 0; margin-top: 1px; }
-  .ci-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
-
-  .cert-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-  .cert-badge {
-    padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
-    background: var(--tc-light); color: var(--tc-dark); border: 0.5px solid #b5d4f4;
-  }
-  @media (max-width: 600px) {
-  .contact-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .contact-info {
-    width: 100%;
-  }
-
-  .pillars {
-    grid-template-columns: 1fr;
-  }
-
-  .p-icon {
-    font-size: 24px;
-    color: var(--tc-blue);
-  }
-}
-</style>
-
-<h2 class="sr-only">Trintec Construction Inc. — Interactive Company Catalog</h2>
+  </style>
+</head>
+<body>
 
 <div class="catalog">
   <div class="header">
     <div class="header-logo">
-      <div class="logo-name">TRINTEC</div>
-      <div class="logo-sub">Construction Inc.</div>
+      <img src="Trintec_col_large.jpg" alt="Trintec Construction Inc.">
     </div>
-    <div style="text-align:right;">
-      <div class="header-badge">
-        <div class="badge-num">25+</div>
-        <div class="badge-label">Years of excellence</div>
-      </div>
+    <div class="header-badge">
+      <img src="Trintec_25_YEARS_FAW_-_Copy__2_.jpg" alt="25 Years">
     </div>
   </div>
 
   <nav class="nav">
-    <button class="nav-btn active" onclick="showSection('about', this)">About</button>
-    <button class="nav-btn" onclick="showSection('clients', this)">Clients</button>
-    <button class="nav-btn" onclick="showSection('projects', this)">Portfolio</button>
-    <button class="nav-btn" onclick="showSection('capabilities', this)">Capabilities</button>
-    <button class="nav-btn" onclick="showSection('credentials', this)">Licenses & Insurance</button>
-    <button class="nav-btn" onclick="showSection('contact', this)">Contact</button>
+    <button class="nav-btn active" data-section="about">About</button>
+    <button class="nav-btn" data-section="clients">Clients</button>
+    <button class="nav-btn" data-section="projects">Portfolio</button>
+    <button class="nav-btn" data-section="capabilities">Capabilities</button>
+    <button class="nav-btn" data-section="credentials">Licenses & Insurance</button>
+    <button class="nav-btn" data-section="contact">Contact</button>
   </nav>
 
   <!-- ABOUT -->
@@ -317,17 +229,23 @@
     </div>
     <div class="pillars">
       <div class="pillar">
-        <div class="p-icon">🏗️</div>
+        <div class="p-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
         <div class="p-title">On-time delivery</div>
         <div class="p-desc">Direct crew management keeps your project on schedule</div>
       </div>
       <div class="pillar">
-        <div class="p-icon">✅</div>
+        <div class="p-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <div class="p-title">Quality assurance</div>
         <div class="p-desc">In-house teams maintain high standards throughout</div>
       </div>
       <div class="pillar">
-        <div class="p-icon">📞</div>
+        <div class="p-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
         <div class="p-title">Single point of contact</div>
         <div class="p-desc">Streamlined communication from start to finish</div>
       </div>
@@ -373,12 +291,12 @@
   <!-- PROJECTS -->
   <div id="sec-projects" class="section">
     <div class="proj-filter">
-      <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-      <button class="filter-btn" onclick="filterProjects('commercial', this)">Commercial</button>
-      <button class="filter-btn" onclick="filterProjects('municipal', this)">Municipal</button>
-      <button class="filter-btn" onclick="filterProjects('residential', this)">Residential</button>
-      <button class="filter-btn" onclick="filterProjects('hospitality', this)">Hospitality</button>
-      <button class="filter-btn" onclick="filterProjects('exterior', this)">Exterior</button>
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="commercial">Commercial</button>
+      <button class="filter-btn" data-cat="municipal">Municipal</button>
+      <button class="filter-btn" data-cat="residential">Residential</button>
+      <button class="filter-btn" data-cat="hospitality">Hospitality</button>
+      <button class="filter-btn" data-cat="exterior">Exterior</button>
     </div>
     <div class="proj-grid" id="proj-grid">
       <div class="proj-card" data-cat="municipal">
@@ -575,22 +493,22 @@
       <div class="contact-info">
         <h3>Location & contact</h3>
         <div class="ci-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z" stroke="#6b7280" stroke-width="1" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="#6b7280" stroke-width="1" fill="none"/></svg>
           <span class="ci-text">7865 NW 66th Street<br>Miami, FL 33166</span>
         </div>
         <div class="ci-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.5" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/><path d="M2 5.5l6 4 6-4" stroke="var(--color-text-secondary)" stroke-width="1"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.5" stroke="#6b7280" stroke-width="1" fill="none"/><path d="M2 5.5l6 4 6-4" stroke="#6b7280" stroke-width="1"/></svg>
           <span class="ci-text">pschvartz@trintecinc.com</span>
         </div>
         <div class="ci-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z" stroke="#6b7280" stroke-width="1" fill="none"/></svg>
           <span class="ci-text">305-685-3001</span>
         </div>
       </div>
       <div class="contact-info">
         <h3>Service area</h3>
         <div class="ci-row" style="flex-direction: column; gap: 6px; margin-top: 4px;">
-          <p style="font-size:13px; color: var(--color-text-secondary); line-height:1.6;">Building Excellence in South Florida Since 1998. Serving Miami-Dade, Broward, and Palm Beach Counties.</p>
+          <p style="font-size:13px; color: #6b7280; line-height:1.6;">Building Excellence in South Florida Since 1998. Serving Miami-Dade, Broward, and Palm Beach Counties.</p>
         </div>
         <div class="cert-badges">
           <span class="cert-badge">SBE</span>
@@ -605,22 +523,28 @@
 </div>
 
 <script>
-function showSection(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('sec-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
-function filterProjects(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.proj-card').forEach(card => {
-    if (cat === 'all' || card.dataset.cat === cat) {
-      card.style.display = '';
-    } else {
-      card.style.display = 'none';
-    }
+  // Nav tabs
+  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var section = this.getAttribute('data-section');
+      document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+      document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.getElementById('sec-' + section).classList.add('active');
+      this.classList.add('active');
+    });
   });
-}
+
+  // Project filters
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var cat = this.getAttribute('data-cat');
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelectorAll('.proj-card').forEach(function(card) {
+        card.style.display = (cat === 'all' || card.getAttribute('data-cat') === cat) ? '' : 'none';
+      });
+    });
+  });
 </script>
+</body>
+</html>
