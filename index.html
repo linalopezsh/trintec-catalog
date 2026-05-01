@@ -162,6 +162,20 @@
     .cert-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
     .cert-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; background: var(--tc-light); color: var(--tc-dark); border: 1px solid #b5d4f4; }
 
+    .ci-link { text-decoration: none; border-radius: 8px; transition: background 0.15s; padding: 4px 6px; margin: -4px -6px; }
+    .ci-link:hover { background: var(--tc-light); }
+    .ci-link-text { color: var(--tc-blue) !important; }
+
+    .vcard-btn {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 16px; padding: 10px 18px;
+      background: var(--tc-blue); color: #fff;
+      border: none; border-radius: 8px; cursor: pointer;
+      font-size: 13px; font-weight: 500;
+      transition: background 0.15s;
+    }
+    .vcard-btn:hover { background: var(--tc-dark); }
+
     /* Mobile */
     @media (max-width: 600px) {
       .header { padding: 12px 16px; }
@@ -492,19 +506,28 @@
     <div class="contact-grid">
       <div class="contact-info">
         <h3>Location & contact</h3>
-        <div class="ci-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z" stroke="#6b7280" stroke-width="1" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="#6b7280" stroke-width="1" fill="none"/></svg>
-          <span class="ci-text">7865 NW 66th Street<br>Miami, FL 33166</span>
-        </div>
-        <div class="ci-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.5" stroke="#6b7280" stroke-width="1" fill="none"/><path d="M2 5.5l6 4 6-4" stroke="#6b7280" stroke-width="1"/></svg>
-          <span class="ci-text">pschvartz@trintecinc.com</span>
-        </div>
-        <div class="ci-row">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z" stroke="#6b7280" stroke-width="1" fill="none"/></svg>
-          <span class="ci-text">305-685-3001</span>
-        </div>
+
+        <a class="ci-row ci-link" href="https://maps.google.com/?q=7865+NW+66th+Street+Miami+FL+33166" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z" stroke="#1a5fa8" stroke-width="1" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="#1a5fa8" stroke-width="1" fill="none"/></svg>
+          <span class="ci-text ci-link-text">7865 NW 66th Street<br>Miami, FL 33166</span>
+        </a>
+
+        <a class="ci-row ci-link" href="mailto:pschvartz@trintecinc.com">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.5" stroke="#1a5fa8" stroke-width="1" fill="none"/><path d="M2 5.5l6 4 6-4" stroke="#1a5fa8" stroke-width="1"/></svg>
+          <span class="ci-text ci-link-text">pschvartz@trintecinc.com</span>
+        </a>
+
+        <a class="ci-row ci-link" href="tel:3056853001">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z" stroke="#1a5fa8" stroke-width="1" fill="none"/></svg>
+          <span class="ci-text ci-link-text">305-685-3001</span>
+        </a>
+
+        <button class="vcard-btn" onclick="downloadVCard()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Save Contact
+        </button>
       </div>
+
       <div class="contact-info">
         <h3>Service area</h3>
         <div class="ci-row" style="flex-direction: column; gap: 6px; margin-top: 4px;">
@@ -523,7 +546,27 @@
 </div>
 
 <script>
-  // Nav tabs
+  // vCard download
+  function downloadVCard() {
+    var vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:Trintec Construction Inc.',
+      'ORG:Trintec Construction Inc.',
+      'ADR;TYPE=WORK:;;7865 NW 66th Street;Miami;FL;33166;USA',
+      'TEL;TYPE=WORK:305-685-3001',
+      'EMAIL;TYPE=WORK:pschvartz@trintecinc.com',
+      'URL:https://linalopezsh.github.io/trintec-catalog/',
+      'END:VCARD'
+    ].join('\n');
+    var blob = new Blob([vcard], { type: 'text/vcard' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Trintec-Construction.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
   document.querySelectorAll('.nav-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var section = this.getAttribute('data-section');
