@@ -1,0 +1,626 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+<style>
+  /* TODO tu CSS actual */
+
+  /* Responsive phone */
+  @media (max-width: 600px) {
+    .header {
+      padding: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .logo-name {
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .header-badge {
+      width: 100%;
+    }
+
+    .nav {
+      padding: 0 12px;
+    }
+
+    .nav-btn {
+      padding: 12px 10px;
+      font-size: 12px;
+    }
+
+    .section {
+      padding: 16px 14px;
+    }
+
+    .about-grid,
+    .clients-cols,
+    .caps-grid,
+    .cred-grid,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+
+    .proj-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .highlight-strip {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .insurance-row {
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .ins-amt {
+      font-size: 14px;
+    }
+  }
+
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --tc-blue: #1a5fa8;
+    --tc-sky: #5aabdc;
+    --tc-light: #e6f1fb;
+    --tc-dark: #042C53;
+    --tc-mid: #378ADD;
+    --nav-h: 56px;
+  }
+  body { font-family: var(--font-sans, system-ui, sans-serif); }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+  .catalog { width: 100%; }
+
+  /* Top header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 4px;
+  }
+  .header-logo { display: flex; flex-direction: column; gap: 2px; }
+  .logo-name {
+    font-size: 22px; font-weight: 500; letter-spacing: 3px;
+    color: var(--tc-blue);
+  }
+  .logo-sub { font-size: 11px; letter-spacing: 2px; color: var(--color-text-secondary); text-transform: uppercase; }
+  .header-badge {
+    background: var(--tc-light); border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg); padding: 6px 14px; text-align: center;
+  }
+  .badge-num { font-size: 20px; font-weight: 500; color: var(--tc-blue); }
+  .badge-label { font-size: 10px; color: var(--color-text-secondary); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* Nav tabs */
+  .nav {
+    display: flex; gap: 2px; padding: 0 24px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0; padding: 12px 16px; font-size: 13px; font-weight: 400;
+    border: none; background: transparent; cursor: pointer; color: var(--color-text-secondary);
+    border-bottom: 2px solid transparent; margin-bottom: -0.5px;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--color-text-primary); }
+  .nav-btn.active {
+    color: var(--tc-blue); border-bottom-color: var(--tc-blue); font-weight: 500;
+  }
+
+  /* Sections */
+  .section { display: none; padding: 20px 24px; }
+  .section.active { display: block; }
+
+  /* About section */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .info-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg); padding: 16px;
+  }
+  .info-card .ic-label { font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .info-card .ic-value { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+  .info-card .ic-sub { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  .tagline {
+    background: var(--tc-light); border-radius: var(--border-radius-lg); padding: 16px 20px;
+    border-left: 3px solid var(--tc-blue); margin-bottom: 20px;
+  }
+  .tagline p { font-size: 14px; color: var(--tc-dark); line-height: 1.7; }
+
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pillar {
+    border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg);
+    padding: 14px; text-align: center;
+  }
+  .pillar .p-icon { font-size: 22px; margin-bottom: 8px; }
+  .pillar .p-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .pillar .p-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+  /* Clients */
+  .clients-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .clients-group { }
+  .clients-group h3 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .client-chip {
+    display: inline-block; margin: 3px 3px 3px 0;
+    padding: 4px 10px; font-size: 12px;
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 20px; color: var(--color-text-secondary);
+  }
+  .client-chip.gov { background: #e6f1fb; color: var(--tc-dark); border-color: #b5d4f4; }
+
+  /* Projects */
+  .proj-filter { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 5px 14px; font-size: 12px; border: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-primary); border-radius: 20px; cursor: pointer;
+    color: var(--color-text-secondary); transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--tc-sky); color: var(--tc-blue); }
+  .filter-btn.active { background: var(--tc-blue); color: #fff; border-color: var(--tc-blue); font-weight: 500; }
+
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .proj-card {
+    border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg);
+    padding: 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    background: var(--color-background-primary);
+  }
+  .proj-card:hover { border-color: var(--tc-sky); background: var(--color-background-secondary); }
+  .proj-tag {
+    display: inline-block; margin-bottom: 8px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    padding: 2px 8px; border-radius: 10px; font-weight: 500;
+  }
+  .proj-tag.commercial { background: #e6f1fb; color: var(--tc-dark); }
+  .proj-tag.municipal { background: #eaf3de; color: #27500A; }
+  .proj-tag.residential { background: #FAEEDA; color: #412402; }
+  .proj-tag.hospitality { background: #FBEAF0; color: #4B1528; }
+  .proj-tag.exterior { background: #F1EFE8; color: #2C2C2A; }
+  .proj-card h4 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .proj-card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+  /* Capabilities */
+  .caps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cap-group { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
+  .cap-group h3 { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; color: var(--tc-blue); }
+  .cap-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .cap-item:last-child { border-bottom: none; }
+  .cap-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tc-sky); flex-shrink: 0; }
+  .cap-item span { font-size: 13px; color: var(--color-text-primary); }
+
+  /* Credentials */
+  .cred-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cred-card {
+    border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px;
+    background: var(--color-background-primary);
+  }
+  .cred-card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-text-secondary); margin-bottom: 10px; }
+  .cred-item { padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .cred-item:last-child { border-bottom: none; }
+  .cred-item .ci-label { font-size: 12px; color: var(--color-text-secondary); }
+  .cred-item .ci-val { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .cred-item .ci-num { font-size: 12px; color: var(--tc-blue); font-family: var(--font-mono, monospace); }
+
+  .insurance-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .insurance-row:last-child { border-bottom: none; }
+  .ins-type { font-size: 13px; color: var(--color-text-secondary); }
+  .ins-amt { font-size: 16px; font-weight: 500; color: var(--tc-blue); }
+
+  .highlight-strip {
+    background: var(--tc-light); border-radius: var(--border-radius-lg); padding: 14px 20px;
+    margin-top: 12px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .hs-label { font-size: 12px; color: var(--color-text-secondary); }
+  .hs-value { font-size: 18px; font-weight: 500; color: var(--tc-blue); }
+
+  /* Contact */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .contact-info { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 18px; }
+  .contact-info h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-text-secondary); margin-bottom: 12px; }
+  .ci-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .ci-row svg { flex-shrink: 0; margin-top: 1px; }
+  .ci-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+
+  .cert-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .cert-badge {
+    padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    background: var(--tc-light); color: var(--tc-dark); border: 0.5px solid #b5d4f4;
+  }
+  @media (max-width: 600px) {
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-info {
+    width: 100%;
+  }
+
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .p-icon {
+    font-size: 24px;
+    color: var(--tc-blue);
+  }
+}
+</style>
+
+<h2 class="sr-only">Trintec Construction Inc. — Interactive Company Catalog</h2>
+
+<div class="catalog">
+  <div class="header">
+    <div class="header-logo">
+      <div class="logo-name">TRINTEC</div>
+      <div class="logo-sub">Construction Inc.</div>
+    </div>
+    <div style="text-align:right;">
+      <div class="header-badge">
+        <div class="badge-num">25+</div>
+        <div class="badge-label">Years of excellence</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('about', this)">About</button>
+    <button class="nav-btn" onclick="showSection('clients', this)">Clients</button>
+    <button class="nav-btn" onclick="showSection('projects', this)">Portfolio</button>
+    <button class="nav-btn" onclick="showSection('capabilities', this)">Capabilities</button>
+    <button class="nav-btn" onclick="showSection('credentials', this)">Licenses & Insurance</button>
+    <button class="nav-btn" onclick="showSection('contact', this)">Contact</button>
+  </nav>
+
+  <!-- ABOUT -->
+  <div id="sec-about" class="section active">
+    <div class="tagline">
+      <p>Founded in 1998, Trintec Construction is South Florida's trusted full-service General and Roofing Contractor — serving businesses, property managers, developers, and government agencies with exceptional craftsmanship and on-time delivery.</p>
+    </div>
+    <div class="about-grid">
+      <div class="info-card">
+        <div class="ic-label">Founded</div>
+        <div class="ic-value">1998</div>
+        <div class="ic-sub">Miami, FL</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Bond capacity</div>
+        <div class="ic-value">$10 Million</div>
+        <div class="ic-sub">Single job limit</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Service area</div>
+        <div class="ic-value">South Florida</div>
+        <div class="ic-sub">Miami-Dade · Broward · Palm Beach</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Specialization</div>
+        <div class="ic-value">Commercial</div>
+        <div class="ic-sub">Interior & exterior construction</div>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="p-icon">🏗️</div>
+        <div class="p-title">On-time delivery</div>
+        <div class="p-desc">Direct crew management keeps your project on schedule</div>
+      </div>
+      <div class="pillar">
+        <div class="p-icon">✅</div>
+        <div class="p-title">Quality assurance</div>
+        <div class="p-desc">In-house teams maintain high standards throughout</div>
+      </div>
+      <div class="pillar">
+        <div class="p-icon">📞</div>
+        <div class="p-title">Single point of contact</div>
+        <div class="p-desc">Streamlined communication from start to finish</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTS -->
+  <div id="sec-clients" class="section">
+    <div class="clients-cols">
+      <div class="clients-group">
+        <h3>Government agencies</h3>
+        <span class="client-chip gov">Miami-Dade County Aviation (MDAD)</span>
+        <span class="client-chip gov">City of Fort Lauderdale</span>
+        <span class="client-chip gov">City of Miami</span>
+        <span class="client-chip gov">City of Miami Beach</span>
+        <span class="client-chip gov">City of Sunrise</span>
+        <span class="client-chip gov">Broward County Public Schools</span>
+        <span class="client-chip gov">Miami-Dade Public Schools</span>
+        <span class="client-chip gov">Miami-Dade Parks & Recreation</span>
+        <span class="client-chip gov">Miami-Dade Corrections</span>
+        <span class="client-chip gov">South Broward Drainage District</span>
+        <span class="client-chip gov">General Services Administration</span>
+        <span class="client-chip gov">Immigration Control & Enforcement</span>
+      </div>
+      <div class="clients-group">
+        <h3>Property management</h3>
+        <span class="client-chip">CBRE</span>
+        <span class="client-chip">Cushman & Wakefield</span>
+        <span class="client-chip">Jones Lang LaSalle (JLL)</span>
+        <span class="client-chip">Holladay Properties</span>
+        <span class="client-chip">Kennedy Wilson Properties</span>
+        <span class="client-chip">TILIA Management</span>
+        <span class="client-chip">Signature Southern</span>
+        <span class="client-chip">Bridges Management</span>
+        <span class="client-chip">YMP Management</span>
+        <span class="client-chip">Market Street</span>
+        <span class="client-chip">Digital Realty</span>
+        <span class="client-chip">Pacific National Bank</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div id="sec-projects" class="section">
+    <div class="proj-filter">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+      <button class="filter-btn" onclick="filterProjects('commercial', this)">Commercial</button>
+      <button class="filter-btn" onclick="filterProjects('municipal', this)">Municipal</button>
+      <button class="filter-btn" onclick="filterProjects('residential', this)">Residential</button>
+      <button class="filter-btn" onclick="filterProjects('hospitality', this)">Hospitality</button>
+      <button class="filter-btn" onclick="filterProjects('exterior', this)">Exterior</button>
+    </div>
+    <div class="proj-grid" id="proj-grid">
+      <div class="proj-card" data-cat="municipal">
+        <span class="proj-tag municipal">Municipal</span>
+        <h4>Fisher Park</h4>
+        <p>Complete renovation with landscaping, pathways, and recreational facilities. City of Miami Beach.</p>
+      </div>
+      <div class="proj-card" data-cat="municipal">
+        <span class="proj-tag municipal">Municipal</span>
+        <h4>Island View Park</h4>
+        <p>Comprehensive waterfront park upgrades creating modern recreational spaces.</p>
+      </div>
+      <div class="proj-card" data-cat="municipal">
+        <span class="proj-tag municipal">Municipal</span>
+        <h4>Pump Station S-3</h4>
+        <p>Critical infrastructure for South Broward Drainage District.</p>
+      </div>
+      <div class="proj-card" data-cat="municipal">
+        <span class="proj-tag municipal">Municipal</span>
+        <h4>South Side School</h4>
+        <p>Historic renovation for City of Fort Lauderdale. Preservation + modern systems integration.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>Miami Springs Library</h4>
+        <p>Structural expansion, interior renovation, HVAC/electrical upgrade for this community resource.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>777 Brickell (CBRE)</h4>
+        <p>Complete lobby renovation with modern finishes and enhanced lighting.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>1390 Brickell Ave</h4>
+        <p>Elegant lobby transformation for Pacific National Bank with sophisticated design.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>150 W. Flagler St</h4>
+        <p>Contemporary lobby redesign for Gaedeke Group.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>550 Biltmore Way</h4>
+        <p>Upscale renovation for Taylor & Mathis with premium finishes.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>McDowell Housing Offices</h4>
+        <p>Complete office buildout with custom finishes and efficient space planning.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>Heinemann Americas Inc.</h4>
+        <p>Corporate office buildout with modern amenities.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>100 South Biscayne</h4>
+        <p>Class A bathroom renovations with high-end fixtures and elegant tilework.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>Cemex Florida HQ</h4>
+        <p>Comprehensive interior renovation delivering a sophisticated headquarters environment.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>BLU Wellness (Brickell & Miami Beach)</h4>
+        <p>Full wellness facility with spa-quality finishes and custom lighting.</p>
+      </div>
+      <div class="proj-card" data-cat="commercial">
+        <span class="proj-tag commercial">Commercial</span>
+        <h4>Crossville Tiles Showroom</h4>
+        <p>Premium retail buildout in Doral with custom lighting and display systems.</p>
+      </div>
+      <div class="proj-card" data-cat="exterior">
+        <span class="proj-tag exterior">Exterior</span>
+        <h4>Mercy Hospital MOB</h4>
+        <p>Full exterior refurbishment: stucco restoration, painting, and weatherproofing while maintaining operations.</p>
+      </div>
+      <div class="proj-card" data-cat="hospitality">
+        <span class="proj-tag hospitality">Hospitality</span>
+        <h4>Best Western Plus Hotel</h4>
+        <p>Ground-up construction in Miami Springs. Full franchise standards compliance.</p>
+      </div>
+      <div class="proj-card" data-cat="residential">
+        <span class="proj-tag residential">Residential</span>
+        <h4>Brickell Apartments</h4>
+        <p>Premium multi-family development in Brickell with luxury finishes and urban site management.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div id="sec-capabilities" class="section">
+    <div class="caps-grid">
+      <div class="cap-group">
+        <h3>Construction trades</h3>
+        <div class="cap-item"><div class="cap-dot"></div><span>Demolition</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Rough & finish carpentry</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Shell construction & masonry</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Drywall framing, hanging & finishing</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Interior & exterior painting</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Stucco and lath application</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Building & mechanical insulation</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Complete roofing services</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Punch out</span></div>
+      </div>
+      <div class="cap-group">
+        <h3>Administrative excellence</h3>
+        <div class="cap-item"><div class="cap-dot"></div><span>Construction management</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Budget development & control</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Estimating & proposal review</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>CPM scheduling</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Value engineering</span></div>
+        <div class="cap-item"><div class="cap-dot"></div><span>Design document constructability review</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREDENTIALS -->
+  <div id="sec-credentials" class="section">
+    <div class="cred-grid">
+      <div class="cred-card">
+        <h3>State licenses</h3>
+        <div class="cred-item">
+          <div class="ci-label">General Contractor</div>
+          <div class="ci-num">CGC059705</div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-label">Roofing Contractor</div>
+          <div class="ci-num">CCC1327273</div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-label">Commercial Pool & Spa</div>
+          <div class="ci-num">CPC1458279</div>
+        </div>
+      </div>
+      <div class="cred-card">
+        <h3>Insurance coverage</h3>
+        <div class="insurance-row">
+          <span class="ins-type">Workers compensation</span>
+          <span class="ins-amt">$2M</span>
+        </div>
+        <div class="insurance-row">
+          <span class="ins-type">General liability</span>
+          <span class="ins-amt">$5M</span>
+        </div>
+        <div class="insurance-row">
+          <span class="ins-type">Automobile</span>
+          <span class="ins-amt">$1M</span>
+        </div>
+      </div>
+      <div class="cred-card">
+        <h3>Business certifications</h3>
+        <div class="cred-item">
+          <div class="ci-val">SBE — Small Business Enterprise</div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-val">DBE — Disadvantaged Business Enterprise</div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-val">WBE — Woman Business Enterprise</div>
+          <div class="ci-label">Broward, Dade, Palm Beach & State of Florida</div>
+        </div>
+      </div>
+      <div class="cred-card">
+        <h3>Professional credentials</h3>
+        <div class="cred-item">
+          <div class="ci-val">Petulia Schvartz</div>
+          <div class="ci-label">President & Qualifier</div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-label">Certification</div>
+          <div class="ci-val">LEED AP Building & Construction</div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-label">Certification</div>
+          <div class="ci-val">EPA Renovator Certified</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-strip">
+      <span class="hs-label">Bonding capacity (single job)</span>
+      <span class="hs-value">$10,000,000</span>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="sec-contact" class="section">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Location & contact</h3>
+        <div class="ci-row">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/></svg>
+          <span class="ci-text">7865 NW 66th Street<br>Miami, FL 33166</span>
+        </div>
+        <div class="ci-row">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.5" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/><path d="M2 5.5l6 4 6-4" stroke="var(--color-text-secondary)" stroke-width="1"/></svg>
+          <span class="ci-text">pschvartz@trintecinc.com</span>
+        </div>
+        <div class="ci-row">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h2.5l1 3-1.5 1.5a9 9 0 0 0 3.5 3.5L10 9.5l3 1V13c0 .5-.5 1-1 1C5 14 2 8 2 4c0-.5.5-1 1-1Z" stroke="var(--color-text-secondary)" stroke-width="1" fill="none"/></svg>
+          <span class="ci-text">305-685-3001</span>
+        </div>
+      </div>
+      <div class="contact-info">
+        <h3>Service area</h3>
+        <div class="ci-row" style="flex-direction: column; gap: 6px; margin-top: 4px;">
+          <p style="font-size:13px; color: var(--color-text-secondary); line-height:1.6;">Building Excellence in South Florida Since 1998. Serving Miami-Dade, Broward, and Palm Beach Counties.</p>
+        </div>
+        <div class="cert-badges">
+          <span class="cert-badge">SBE</span>
+          <span class="cert-badge">DBE</span>
+          <span class="cert-badge">WBE</span>
+          <span class="cert-badge">LEED AP</span>
+          <span class="cert-badge">EPA Certified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function filterProjects(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
